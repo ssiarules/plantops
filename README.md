@@ -55,6 +55,8 @@ python3 -m unittest discover -s tests -v
 
 Demo script for recording: docs/demo-script.md.
 
+Demo video (unlisted): https://www.youtube.com/watch?v=zwkZ91sGdps
+
 ## Approval gate, exact
 
 - Agent message must end with: "Approve this work order? Reply Approve or Decline in this room."
