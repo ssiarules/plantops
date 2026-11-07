@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PlantOps Agent: Three Backend Structures, One AI Layer</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;background:#f6f7f5;color:#1a1a1a;line-height:1.5}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 20px 48px}
+h1{font-size:28px;line-height:1.2;margin:0 0 8px} h2{font-size:21px;margin:28px 0 10px} h3{font-size:16px;margin:0 0 6px}
+p.lead{font-size:17px;color:#444;max-width:820px}
+.card{border:1px solid #ddd;background:#fff;border-radius:14px;padding:18px;margin:14px 0}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}
+.box{border:2px solid #2f6b4f;background:#eef6f0;border-radius:10px;padding:10px 12px;font-weight:600}
+.box.soft{background:#f2f2f2;border-color:#999;font-weight:500}
+.box.ai{background:#1f3d5a;color:#fff;border-color:#1f3d5a}
+.arrow{font-weight:700;color:#666}
+.pain{background:#fff4e5;border:1px solid #e8c07a;border-radius:10px;padding:12px 14px}
+.ai-band{background:#1f3d5a;color:#fff;border-radius:14px;padding:18px;margin:20px 0}
+.ai-band h2{color:#fff;margin-top:0}
+ul{margin:8px 0} li{margin:4px 0}
+table{width:100%;border-collapse:collapse;background:#fff} th,td{border:1px solid #ddd;padding:9px;text-align:left;vertical-align:top}
+.small{color:#555;font-size:14px}
+</style></head><body><div class="wrap">
+<h1>Three backend structures, one AI layer</h1>
+<p class="lead">PlantOps Agent does not replace the manager, the nursery, or the worker. It sits in the team chat, in Switch, and keeps the handoff between them in one place, with an approval before anything changes, and a logged outcome after.</p>
+<p class="small">Sample data only. No real building data. This diagram is a brainstorm and demo design, not a new build go.</p>
+
+<h2>Scenario A: Property management company, many buildings</h2>
+<div class="card">
+<h3>Who does what, today</h3>
+<div class="flow"><span class="box">Building owner</span><span class="arrow">→</span><span class="box">Portfolio manager, central office</span><span class="arrow">→</span><span class="box">Building manager, per building</span><span class="arrow">→</span><span class="box soft">In-house crew, or outside vendor</span></div>
+<ul>
+<li>Central office holds the portfolio view, budgets, contracts, and approvals. Building managers hold the site view, access, and daily problems.</li>
+<li>Work starts as a call, text, email, or tenant note. It becomes a work order, then a vendor dispatch, then an invoice. Routine work under a set cap is often handled without owner interruption, larger work needs owner approval.</li>
+<li>One portfolio relationship can put a crew in many locations, so the same crew, vendor, and budget rules repeat across buildings, with different site conditions.</li>
+</ul>
+<div class="pain"><strong>Where it breaks:</strong> history lives in email and spreadsheets, not per plant. A manager in Building 2 cannot see what worked in Building 1. Vendor proof arrives as a text, not a logged outcome. Approval waits for a reply in a different thread.</div>
+</div>
+
+<h2>Scenario B: Nursery as the service provider</h2>
+<div class="card">
+<h3>Who does what, today</h3>
+<div class="flow"><span class="box">Nursery owner and sales</span><span class="arrow">→</span><span class="box">Account manager, owns a client portfolio</span><span class="arrow">→</span><span class="box">Crew lead, morning meeting and inspection</span><span class="arrow">→</span><span class="box soft">Field crew, shared across clients</span><span class="arrow">→</span><span class="box soft">Client buildings</span></div>
+<ul>
+<li>Sales sells plants and a service plan. The account manager is the single trusted contact, owns scheduling, contracts, budgets, and client updates.</li>
+<li>Crews are shared, not one crew per client. The crew lead runs the morning meeting, directs work on site, and inspects completed work.</li>
+<li>Inside the nursery, a second line runs in parallel: grower and inventory, propagation to dispatch, plant quality, and replacement stock. Service and sales meet at replacement time.</li>
+</ul>
+<div class="pain"><strong>Where it breaks:</strong> condition notes stay with one crew member. A route change loses the reason for the visit. A replacement is sold without a condition record to justify it. The client sees an invoice, not the photo and the check that led to it.</div>
+</div>
+
+<h2>Scenario C: Owner managed, or owner hires help directly</h2>
+<div class="card">
+<h3>Three paths from the same owner</h3>
+<div class="flow"><span class="box">Building owner</span><span class="arrow">→</span><span class="box soft">Path 1: In-house caretaker</span></div>
+<div class="flow"><span class="box">Building owner</span><span class="arrow">→</span><span class="box soft">Path 2: Nursery service contract</span></div>
+<div class="flow"><span class="box">Building owner</span><span class="arrow">→</span><span class="box soft">Path 3: Management company, then Scenario A</span></div>
+<ul>
+<li>In commercial buildings, the lease decides the zone: landlord or manager usually covers base building and common areas, tenant covers its own premises, and tenant serving systems vary. Plants in common areas sit with the owner or manager, plants inside a suite sit with that tenant, unless the contract says otherwise.</li>
+<li>Owner approval is direct and fast, but it is also a single point of failure. If the caretaker leaves, the history leaves with them.</li>
+<li>Budget, replacement, and treatment supplies often need a separate owner approval, even when daily watering does not.</li>
+</ul>
+<div class="pain"><strong>Where it breaks:</strong> no backup, no shared record, no proof. A new person starts from zero, and the owner cannot tell if a plant was watered, checked, or replaced, or why.</div>
+</div>
+
+<div class="ai-band">
+<h2>PlantOps Agent in between, in Switch</h2>
+<p>One room per building, not one room for everything. A portfolio summary sits above the building rooms. A nursery workspace sits above its client buildings. Permissions follow the room: manager sees their buildings, crew sees only assigned buildings, nursery manager sees all clients, client manager sees only their own buildings.</p>
+<div class="flow"><span class="box">Signal: photo, dry soil, schedule, weather, irrigation</span><span class="arrow">→</span><span class="box">Agent triage: register, weather, irrigation, care log</span><span class="arrow">→</span><span class="box">Proposed work order</span></div>
+<div class="flow"><span class="box">Manager Approve or Decline, in chat</span><span class="arrow">→</span><span class="box">Worker checklist, assigned crew</span><span class="arrow">→</span><span class="box">Photo plus condition note</span></div>
+<div class="flow"><span class="box">Suggestions, how to, tool needed</span><span class="arrow">→</span><span class="box">Work done, photo proof</span><span class="arrow">→</span><span class="box">Manager verifies</span><span class="arrow">→</span><span class="box">Logged outcome, closed</span></div>
+<p>Then, Phase 5, draft only: the agent drafts an email with the work order document, memo, and outcome log attached, posts it in the room for manager approval, and only then would it send, to sample recipients in the demo. No irrigation change, vendor dispatch, or payment happens before manager approval. Escalation triggers go to the manager in the room. Suggestions are not a certain diagnosis from one photo.</p>
+</div>
+
+<h2>Who benefits, in each scenario</h2>
+<table>
+<tr><th>Party</th><th>What changes with PlantOps in the room</th></tr>
+<tr><td>Owner</td><td>Portfolio health in one view, not one building at a time. Approval only for work above the cap, with a record for every job.</td></tr>
+<tr><td>Property manager</td><td>One tap Approve or Decline in chat, instead of chasing email. Same work order format across buildings, so staff can cover for each other.</td></tr>
+<tr><td>Nursery manager</td><td>All clients, urgent conditions first, crew assigned by building. Replacements are justified by condition and photo, not by a sales call alone.</td></tr>
+<tr><td>Crew and worker</td><td>A checklist for that plant, that area, that zone, plus how to and tool needed, instead of a vague task. Photo proof protects their work.</td></tr>
+<tr><td>Client manager</td><td>Proof in the room: photo, condition note, work done, verified, closed. Not just an invoice at month end.</td></tr>
+</table>
+
+<h2>How this maps to the demo, without breaking the core</h2>
+<ul>
+<li><strong>Core, already built:</strong> one sample building, one work order, one approval, one logged outcome, in a real Switch room. That stays the safe fallback.</li>
+<li><strong>Second scene, talk track:</strong> show the same sample building from the nursery side, client, building, planter, and show the portfolio summary with two more sample buildings. No new code needed to talk through it.</li>
+<li><strong>Phase 3, if approved:</strong> sample floor plan and plant card, work order document on Approve, tag sample crew first, vendor last and talk track only.</li>
+<li><strong>Phase 4, in review:</strong> worker checklist, photo step, suggestions, how to, tool, escalation, work done with photo proof, manager verifies, closed.</li>
+<li><strong>Phase 5, confirmed draft only:</strong> email draft with attachment as second documentation, memo, work order document, outcome log, synced to manager, nursery, and worker, after manager approves the draft in the room.</li>
+</ul>
+<p class="small">Sources for the backend patterns, not PlantOps claims: portfolio work order and vendor dispatch patterns, account manager portfolio and shared crew patterns, and commercial lease responsibility zones. Full demo scope, pricing, and submission rules stay as locked in the hub summary.</p>
+</div></body></html>
