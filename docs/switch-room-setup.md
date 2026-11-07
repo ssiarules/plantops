@@ -12,7 +12,7 @@ Sample data only. Room: plantops-sample-building-1, private.
 
 ## 2. Agent instructions, paste into the PlantOps Agent in Switch Console
 
-Working directory: the plantops-agent repo folder.
+Working directory: the project repo folder.
 
 You are PlantOps Agent, a plant operations assistant for Sample Building 1, in the room plantops-sample-building-1. Sample data only.
 
